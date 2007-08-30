@@ -8,6 +8,8 @@
 
 %define major 7
 %define libname %mklibname cdio %{major}
+%define libnamedev %mklibname -d cdio
+%define libnamestaticdev %mklibname -d -s cdio
 %define isomajor 5
 %define isolibname %mklibname iso9660_ %isomajor
 %define cddamajor 0
@@ -72,7 +74,7 @@ so applications that use this library also have the ability to read
 disc images as though they were CD's.
 
 
-%package -n %{libname}-devel
+%package -n %{libnamedev}
 Summary: Devel files from %name
 Group: Development/C
 Requires: %{libname} = %version
@@ -80,18 +82,20 @@ Requires: %{isolibname} = %version
 Requires: %{cddalibname} = %version
 Requires: %{cdiopplibname} = %version
 Provides: %name-devel = %version-%release 
-Requires: pkgconfig
+Obsoletes: %mklibname -d cdio 7
+
  
-%description -n %{libname}-devel
+%description -n %{libnamedev}
 This is the libraries, include files and other resources you can use
 to incorporate %name into applications.
 
-%package -n %libname-static-devel 
+%package -n %libnamestaticdev
 Summary: Static Library for developing applications with %name
 Group: Development/C
-Requires: %libname-devel = %version
+Requires: %libnamedev = %version
+Obsoletes: %mklibname -d -s cdio 7
 
-%description -n %libname-static-devel
+%description -n %libnamestaticdev
 This contains the static library of %name needed for building apps that
 link statically to %name.
 
@@ -168,10 +172,10 @@ mv jp ja
 %postun -n %{cdiopplibname} -p /sbin/ldconfig
 
 
-%post -n %{libname}-devel
+%post -n %{libnamedev}
 %_install_info libcdio.info
 
-%preun -n %{libname}-devel 
+%preun -n %{libnamedev}
 %_remove_install_info libcdio.info
 
 %files apps
@@ -195,7 +199,7 @@ mv jp ja
 %_libdir/libcdio_paranoia.so.%{cddamajor}*
 %_libdir/libudf.so.%{cddamajor}*
 
-%files -n %{libname}-devel
+%files -n %{libnamedev}
 %defattr(-, root, root)
 %doc ChangeLog COPYING README AUTHORS NEWS INSTALL TODO
 %_includedir/cdio
@@ -205,7 +209,7 @@ mv jp ja
 %attr(644,root,root) %_libdir/*.la
 %_libdir/pkgconfig/*.pc
 
-%files -n %libname-static-devel
+%files -n %libnamestaticdev
 %defattr(-,root,root)
 %{_libdir}/lib*.a
 
