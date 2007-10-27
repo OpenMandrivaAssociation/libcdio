@@ -1,5 +1,5 @@
 %define name libcdio
-%define version 0.78.2
+%define version 0.79
 %define release %mkrel 1
 
 %define build_vcd 1
@@ -23,7 +23,7 @@ Release: %release
 License: GPL
 Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
-Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.bz2
+Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
