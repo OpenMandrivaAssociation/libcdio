@@ -1,6 +1,6 @@
 %define name libcdio
 %define version 0.79
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
@@ -24,6 +24,8 @@ License: GPL
 Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
+#gw from Fedora: https://bugzilla.redhat.com/show_bug.cgi?id=427197
+Patch: libcdio-info-buffer.patch
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
@@ -145,6 +147,7 @@ disc images as though they were CD's.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
+%patch -p3
 
 %build
 
