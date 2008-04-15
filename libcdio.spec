@@ -159,8 +159,11 @@ make
 %install
 rm -rf %buildroot
 %makeinstall_std
+#gw was not installed:
+cp libcdio_cdda.pc libcdio_paranoia.pc %buildroot%_libdir/pkgconfig
 cd %buildroot%_mandir
 mv jp ja
+
 
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
@@ -207,7 +210,13 @@ mv jp ja
 %_infodir/libcdio.info*
 %_libdir/*.so
 %attr(644,root,root) %_libdir/*.la
-%_libdir/pkgconfig/*.pc
+%_libdir/pkgconfig/libcdio++.pc
+%_libdir/pkgconfig/libcdio.pc
+%_libdir/pkgconfig/libcdio_cdda.pc
+%_libdir/pkgconfig/libcdio_paranoia.pc
+%_libdir/pkgconfig/libiso9660++.pc
+%_libdir/pkgconfig/libiso9660.pc
+%_libdir/pkgconfig/libudf.pc
 
 %files -n %libnamestaticdev
 %defattr(-,root,root)
