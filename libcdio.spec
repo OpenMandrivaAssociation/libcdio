@@ -165,14 +165,30 @@ cd %buildroot%_mandir
 mv jp ja
 
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %{isolibname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{isolibname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %{cddalibname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{cddalibname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %post -n %{cdiopplibname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{cdiopplibname} -p /sbin/ldconfig
+%endif
 
 
 %post -n %{libnamedev}
