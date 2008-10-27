@@ -28,6 +28,9 @@ BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
 BuildRequires: popt-devel
+BuildRequires: libncurses-devel
+#gw only if we change the man pages
+#BuildRequires: help2man
 %if %build_vcd
 BuildRequires: libvcd-devel > 0.7.19
 %endif
@@ -226,11 +229,9 @@ mv jp ja
 %_infodir/libcdio.info*
 %_libdir/*.so
 %attr(644,root,root) %_libdir/*.la
-%_libdir/pkgconfig/libcdio++.pc
 %_libdir/pkgconfig/libcdio.pc
 %_libdir/pkgconfig/libcdio_cdda.pc
 %_libdir/pkgconfig/libcdio_paranoia.pc
-%_libdir/pkgconfig/libiso9660++.pc
 %_libdir/pkgconfig/libiso9660.pc
 %_libdir/pkgconfig/libudf.pc
 
