@@ -1,16 +1,16 @@
 %define name libcdio
-%define version 0.80
-%define release %mkrel 3
+%define version 0.81
+%define release %mkrel 1
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 7
+%define major 10
 %define libname %mklibname cdio %{major}
 %define libnamedev %mklibname -d cdio
 %define libnamestaticdev %mklibname -d -s cdio
-%define isomajor 5
+%define isomajor 7
 %define isolibname %mklibname iso9660_ %isomajor
 %define cddamajor 0
 %define cddalibname %mklibname cdio_cdda %cddamajor
@@ -20,7 +20,7 @@
 Name: %name
 Version: %version
 Release: %release
-License: GPL
+License: GPLv3+
 Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
@@ -147,7 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %setup -q -n %name-%version
 
 %build
-
+%define _disable_ld_no_undefined 1
 %configure2_5x \
 --without-versioned-libs \
 %if ! %build_vcd
