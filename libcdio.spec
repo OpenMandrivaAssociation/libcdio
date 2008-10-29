@@ -149,7 +149,7 @@ disc images as though they were CD's.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
-%patch -p1
+%patch -p1 -b .fix-linking
 aclocal -I m4
 autoconf
 automake
