@@ -1,6 +1,6 @@
 %define name libcdio
 %define version 0.81
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
@@ -24,6 +24,7 @@ License: GPLv3+
 Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
+Patch: libcdio-0.81-fix-linking.patch
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
@@ -148,9 +149,12 @@ disc images as though they were CD's.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
+%patch -p1
+aclocal -I m4
+autoconf
+automake
 
 %build
-%define _disable_ld_no_undefined 1
 %configure2_5x \
 --without-versioned-libs \
 %if ! %build_vcd
