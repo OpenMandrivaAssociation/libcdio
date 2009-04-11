@@ -26,6 +26,8 @@ URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
 Patch: libcdio-0.81-fix-linking.patch
 Patch1: libcdio-0.81-fix-format-string.patch
+# patch found upstream 7c497a2c735b695cdbedc3cfb80348bad847ba00
+Patch2: libcdio-0.81-fix-infinite_loop.patch
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
@@ -151,7 +153,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
 %patch -p1 -b .fix-linking
-%patch1 -p0 
+%patch1 -p0
+# fix infinite loop 
+%patch2 -p0
 
 aclocal -I m4
 autoconf
