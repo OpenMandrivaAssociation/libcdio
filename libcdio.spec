@@ -25,6 +25,7 @@ Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
 Patch: libcdio-0.81-fix-linking.patch
+Patch1: libcdio-0.81-fix-format-string.patch
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
@@ -150,6 +151,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
 %patch -p1 -b .fix-linking
+%patch1 -p0 
+
 aclocal -I m4
 autoconf
 automake
