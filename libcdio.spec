@@ -153,6 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 aclocal -I m4
 autoconf
 automake
+libtoolize
 
 %build
 %configure2_5x \
