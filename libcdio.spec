@@ -1,6 +1,6 @@
 %define name libcdio
 %define version 0.81
-%define release %mkrel 4
+%define release %mkrel 5
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
