@@ -1,12 +1,12 @@
 %define name libcdio
-%define version 0.81
-%define release %mkrel 5
+%define version 0.82
+%define release %mkrel 1
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 10
+%define major 12
 %define libname %mklibname cdio %{major}
 %define libnamedev %mklibname -d cdio
 %define libnamestaticdev %mklibname -d -s cdio
@@ -24,10 +24,6 @@ License: GPLv3+
 Group: System/Libraries
 URL: http://www.gnu.org/software/libcdio/
 Source: ftp://ftp.gnu.org/pub/gnu/libcdio/%name-%version.tar.gz
-Patch: libcdio-0.81-fix-linking.patch
-Patch1: libcdio-0.81-fix-format-string.patch
-# patch found upstream 7c497a2c735b695cdbedc3cfb80348bad847ba00
-Patch2: libcdio-0.81-fix-infinite_loop.patch
 BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
@@ -152,15 +148,6 @@ disc images as though they were CD's.
 rm -rf $RPM_BUILD_ROOT
 
 %setup -q -n %name-%version
-%patch -p1 -b .fix-linking
-%patch1 -p0
-# fix infinite loop 
-%patch2 -p0
-
-aclocal -I m4
-autoconf
-automake
-libtoolize
 
 %build
 %configure2_5x \
@@ -242,9 +229,11 @@ mv jp ja
 %_libdir/*.so
 %attr(644,root,root) %_libdir/*.la
 %_libdir/pkgconfig/libcdio.pc
+%_libdir/pkgconfig/libcdio++.pc
 %_libdir/pkgconfig/libcdio_cdda.pc
 %_libdir/pkgconfig/libcdio_paranoia.pc
 %_libdir/pkgconfig/libiso9660.pc
+%_libdir/pkgconfig/libiso9660++.pc
 %_libdir/pkgconfig/libudf.pc
 
 %files -n %libnamestaticdev
