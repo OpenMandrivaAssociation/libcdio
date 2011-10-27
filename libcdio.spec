@@ -1,21 +1,23 @@
 %define name libcdio
-%define version 0.82
-%define release %mkrel 2
+%define version 0.83
+%define release %mkrel 1
 
 %define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 12
+%define major 13
 %define libname %mklibname cdio %{major}
 %define libnamedev %mklibname -d cdio
 %define libnamestaticdev %mklibname -d -s cdio
-%define isomajor 7
+%define isomajor 8
 %define isolibname %mklibname iso9660_ %isomajor
-%define cddamajor 0
+%define cddamajor 1
 %define cddalibname %mklibname cdio_cdda %cddamajor
 %define cdioppmajor 0
 %define cdiopplibname %mklibname cdio++ %cdioppmajor
+%define udfmajor 0
+%define udflibname %mklibname udf %udfmajor
 
 Name: %name
 Version: %version
@@ -84,6 +86,7 @@ Requires: %{libname} = %version
 Requires: %{isolibname} = %version
 Requires: %{cddalibname} = %version
 Requires: %{cdiopplibname} = %version
+Requires: %{udflibname} = %version
 Provides: %name-devel = %version-%release 
 Obsoletes: %mklibname -d cdio 7
 
@@ -105,7 +108,6 @@ link statically to %name.
 %package -n %{isolibname}
 Summary: Libraries from %name
 Group: System/Libraries
-Conflicts: libcdio < 0.74-2mdk
 
 %description -n %{isolibname}
 This library is to encapsulate CD-ROM reading and
@@ -119,7 +121,6 @@ disc images as though they were CD's.
 %package -n %{cddalibname}
 Summary: Libraries from %name
 Group: System/Libraries
-Conflicts: libcdio < 0.74-2mdk
 
 %description -n %{cddalibname}
 This library is to encapsulate CD-ROM reading and
@@ -143,6 +144,19 @@ Some support for disk image types like BIN/CUE and NRG is available,
 so applications that use this library also have the ability to read
 disc images as though they were CD's.
 
+%package -n %{udflibname}
+Summary: Libraries from %name
+Group: System/Libraries
+Conflicts: %{mklibname cdio_cdda 0}
+
+%description -n %{udflibname}
+This library is to encapsulate CD-ROM reading and
+control. Applications wishing to be oblivious of the OS- and
+device-dependent properties of a CD-ROM can use this library.
+
+Some support for disk image types like BIN/CUE and NRG is available,
+so applications that use this library also have the ability to read
+disc images as though they were CD's.
 
 %prep
 rm -rf $RPM_BUILD_ROOT
@@ -166,33 +180,6 @@ cp libcdio_cdda.pc libcdio_paranoia.pc %buildroot%_libdir/pkgconfig
 cd %buildroot%_mandir
 mv jp ja
 
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %{isolibname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{isolibname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %{cddalibname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{cddalibname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%post -n %{cdiopplibname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{cdiopplibname} -p /sbin/ldconfig
-%endif
-
-
 %post -n %{libnamedev}
 %_install_info libcdio.info
 
@@ -201,7 +188,7 @@ mv jp ja
 
 %files apps
 %defattr(-,root,root)
-%doc ChangeLog COPYING README AUTHORS NEWS INSTALL TODO
+%doc README AUTHORS NEWS INSTALL TODO
 %_bindir/*
 %_mandir/man1/*
 %lang(ja) %_mandir/ja/man1/*
@@ -218,11 +205,14 @@ mv jp ja
 %defattr (- ,root,root)
 %_libdir/libcdio_cdda.so.%{cddamajor}*
 %_libdir/libcdio_paranoia.so.%{cddamajor}*
-%_libdir/libudf.so.%{cddamajor}*
+
+%files -n %{udflibname}
+%defattr (- ,root,root)
+%_libdir/libudf.so.%{udfmajor}*
 
 %files -n %{libnamedev}
 %defattr(-, root, root)
-%doc ChangeLog COPYING README AUTHORS NEWS INSTALL TODO
+%doc ChangeLog README AUTHORS NEWS INSTALL TODO
 %_includedir/cdio
 %_includedir/cdio++/
 %_infodir/libcdio.info*
