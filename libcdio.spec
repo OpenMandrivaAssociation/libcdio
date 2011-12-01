@@ -159,7 +159,7 @@ so applications that use this library also have the ability to read
 disc images as though they were CD's.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %setup -q -n %name-%version
 
@@ -236,6 +236,6 @@ mv jp ja
 %_libdir/libiso9660++.so.%{cdioppmajor}*
 
 %clean
-rm -rf ${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
 
 
