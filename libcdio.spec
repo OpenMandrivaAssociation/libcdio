@@ -217,7 +217,6 @@ mv jp ja
 %_includedir/cdio++/
 %_infodir/libcdio.info*
 %_libdir/*.so
-%attr(644,root,root) %_libdir/*.la
 %_libdir/pkgconfig/libcdio.pc
 %_libdir/pkgconfig/libcdio++.pc
 %_libdir/pkgconfig/libcdio_cdda.pc
