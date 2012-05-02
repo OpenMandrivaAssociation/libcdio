@@ -30,7 +30,7 @@ BuildRoot: %_tmppath/%name-buildroot
 Summary: CD-ROM reading library
 BuildRequires: libcddb-devel
 BuildRequires: popt-devel
-BuildRequires: libncurses-devel
+BuildRequires: ncurses-devel
 #gw only if we change the man pages
 #BuildRequires: help2man
 %if %build_vcd
