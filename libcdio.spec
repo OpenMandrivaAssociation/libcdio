@@ -10,7 +10,7 @@
 
 %define ppmajor 0
 %define libnamepp %mklibname cdio++ %{ppmajor}
-%define libisopp %mklibname cdio++ %{ppmajor}
+%define libisopp %mklibname iso++ %{ppmajor}
 
 %define udfmajor 0
 %define libudf %mklibname udf %{udfmajor}
@@ -137,7 +137,7 @@ to incorporate %{name} into applications.
 %{_mandir}/man1/*
 
 %files -n %{libname}
-%_libdir/libcdio.so.%{major}*
+%{_libdir}/libcdio.so.%{major}*
 
 %files -n %{libiso}
 %{_libdir}/libiso9660.so.%{isomajor}*
