@@ -2,7 +2,7 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major	13
+%define major	14
 %define libname %mklibname cdio %{major}
 
 %define isomajor 8
