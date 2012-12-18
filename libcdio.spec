@@ -4,17 +4,18 @@
 
 %define major	13
 %define libname %mklibname cdio %{major}
-%define devname %mklibname -d cdio
-%define statname %mklibname -d -s cdio
 
 %define isomajor 8
-%define isolibname %mklibname iso9660_ %{isomajor}
-%define cddamajor 1
-%define cddalibname %mklibname cdio_cdda %{cddamajor}
-%define cdioppmajor 0
-%define cdiopplibname %mklibname cdio++ %{cdioppmajor}
+%define libiso %mklibname iso9660_ %{isomajor}
+
+%define ppmajor 0
+%define libnamepp %mklibname cdio++ %{ppmajor}
+%define libisopp %mklibname cdio++ %{ppmajor}
+
 %define udfmajor 0
-%define udflibname %mklibname udf %{udfmajor}
+%define libudf %mklibname udf %{udfmajor}
+
+%define devname %mklibname -d cdio
 
 Summary:	CD-ROM reading library
 Name:		libcdio
@@ -66,75 +67,46 @@ Group:		System/Libraries
 Provides:	libcdio = %{version}-%{release}
 
 %description -n %{libname}
-This library is to encapsulate CD-ROM reading and
-control. Applications wishing to be oblivious of the OS- and
-device-dependent properties of a CD-ROM can use this library.
+This package contains the C++ library for libcdio.
 
-Some support for disk image types like BIN/CUE and NRG is available,
-so applications that use this library also have the ability to read
-disc images as though they were CD's.
-
-%package -n %{isolibname}
+%package -n %{libiso}
 Summary:	Libraries from %{name}
 Group:		System/Libraries
 
-%description -n %{isolibname}
-This library is to encapsulate CD-ROM reading and
-control. Applications wishing to be oblivious of the OS- and
-device-dependent properties of a CD-ROM can use this library.
+%description -n %{libiso}
+This package contains the C++ library for libiso.
 
-Some support for disk image types like BIN/CUE and NRG is available,
-so applications that use this library also have the ability to read
-disc images as though they were CD's.
-
-%package -n %{cddalibname}
-Summary:	Libraries from %{name}
-Group:		System/Libraries
-
-%description -n %{cddalibname}
-This library is to encapsulate CD-ROM reading and
-control. Applications wishing to be oblivious of the OS- and
-device-dependent properties of a CD-ROM can use this library.
-
-Some support for disk image types like BIN/CUE and NRG is available,
-so applications that use this library also have the ability to read
-disc images as though they were CD's.
-
-%package -n %{cdiopplibname}
+%package -n %{libnamepp}
 Summary:	C++ library from %{name}
 Group:		System/Libraries
 
-%description -n %{cdiopplibname}
-This library is to encapsulate CD-ROM reading and
-control. Applications wishing to be oblivious of the OS- and
-device-dependent properties of a CD-ROM can use this library.
+%description -n %{libnamepp}
+This package contains the C++ library for libcdio++.
 
-Some support for disk image types like BIN/CUE and NRG is available,
-so applications that use this library also have the ability to read
-disc images as though they were CD's.
+%package -n %{libisopp}
+Summary:	C++ library from %{name}
+Group:		System/Libraries
+Conflicts:	%{_lib}cdiopp0 < 0.90-1
 
-%package -n %{udflibname}
+%description -n %{libisopp}
+This package contains the C++ library for libiso++.
+
+%package -n %{libudf}
 Summary:	Libraries from %{name}
 Group:		System/Libraries
 Conflicts:	%{mklibname cdio_cdda 0}
 
-%description -n %{udflibname}
-This library is to encapsulate CD-ROM reading and
-control. Applications wishing to be oblivious of the OS- and
-device-dependent properties of a CD-ROM can use this library.
-
-Some support for disk image types like BIN/CUE and NRG is available,
-so applications that use this library also have the ability to read
-disc images as though they were CD's.
+%description -n %{libudf}
+This package contains the C++ library for libudf.
 
 %package -n %{devname}
 Summary:	Devel files from %{name}
 Group:		Development/C
 Requires:	%{libname} = %{version}-%{release}
-Requires:	%{isolibname} = %{version}-%{release}
-Requires:	%{cddalibname} = %{version}-%{release}
-Requires:	%{cdiopplibname} = %{version}-%{release}
-Requires:	%{udflibname} = %{version}-%{release}
+Requires:	%{libiso} = %{version}-%{release}
+Requires:	%{libnamepp} = %{version}-%{release}
+Requires:	%{libisopp} = %{version}-%{release}
+Requires:	%{libudf} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Obsoletes:	%{_lib}cdio-static-devel
 
@@ -148,6 +120,7 @@ to incorporate %{name} into applications.
 %build
 %configure2_5x \
 	--disable-static \
+	--disable-rpath \
 	--without-versioned-libs \
 %if ! %build_vcd
 	--disable-vcd-info
@@ -157,33 +130,26 @@ to incorporate %{name} into applications.
 
 %install
 %makeinstall_std
-#gw was not installed:
-cp libcdio_cdda.pc libcdio_paranoia.pc %{buildroot}%{_libdir}/pkgconfig
-cd %{buildroot}%{_mandir}
-mv jp ja
 
 %files apps
 %doc README AUTHORS NEWS INSTALL TODO
 %{_bindir}/*
 %{_mandir}/man1/*
-%lang(ja) %{_mandir}/ja/man1/*
 
 %files -n %{libname}
 %_libdir/libcdio.so.%{major}*
 
-%files -n %{isolibname}
+%files -n %{libiso}
 %{_libdir}/libiso9660.so.%{isomajor}*
 
-%files -n %{cddalibname}
-%{_libdir}/libcdio_cdda.so.%{cddamajor}*
-%{_libdir}/libcdio_paranoia.so.%{cddamajor}*
-
-%files -n %{udflibname}
+%files -n %{libudf}
 %{_libdir}/libudf.so.%{udfmajor}*
 
-%files -n %{cdiopplibname}
-%{_libdir}/libcdio++.so.%{cdioppmajor}*
-%{_libdir}/libiso9660++.so.%{cdioppmajor}*
+%files -n %{libnamepp}
+%{_libdir}/libcdio++.so.%{ppmajor}*
+
+%files -n %{libisopp}
+%{_libdir}/libiso9660++.so.%{ppmajor}*
 
 %files -n %{devname}
 %doc ChangeLog README AUTHORS NEWS INSTALL TODO
@@ -193,8 +159,6 @@ mv jp ja
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/libcdio.pc
 %{_libdir}/pkgconfig/libcdio++.pc
-%{_libdir}/pkgconfig/libcdio_cdda.pc
-%{_libdir}/pkgconfig/libcdio_paranoia.pc
 %{_libdir}/pkgconfig/libiso9660.pc
 %{_libdir}/pkgconfig/libiso9660++.pc
 %{_libdir}/pkgconfig/libudf.pc
