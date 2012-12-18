@@ -62,19 +62,19 @@ disc images as though they were CD's.
 This contains the program cd-info as an example application of %{name}.
 
 %package -n %{libname}
-Summary:	Libraries from %{name}
+Summary:	Library from %{name}
 Group:		System/Libraries
 Provides:	libcdio = %{version}-%{release}
 
 %description -n %{libname}
-This package contains the C++ library for libcdio.
+This package contains the library for libcdio.
 
 %package -n %{libiso}
-Summary:	Libraries from %{name}
+Summary:	Library from %{name}
 Group:		System/Libraries
 
 %description -n %{libiso}
-This package contains the C++ library for libiso.
+This package contains the library for libiso.
 
 %package -n %{libnamepp}
 Summary:	C++ library from %{name}
@@ -94,10 +94,9 @@ This package contains the C++ library for libiso++.
 %package -n %{libudf}
 Summary:	Libraries from %{name}
 Group:		System/Libraries
-Conflicts:	%{mklibname cdio_cdda 0}
 
 %description -n %{libudf}
-This package contains the C++ library for libudf.
+This package contains the library for libudf.
 
 %package -n %{devname}
 Summary:	Devel files from %{name}
