@@ -2,7 +2,7 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major	14
+%define major 14
 %define libname %mklibname cdio %{major}
 
 %define isomajor 8
@@ -20,7 +20,7 @@
 Summary:	CD-ROM reading library
 Name:		libcdio
 Version:	0.90
-Release:	1
+Release:	2
 License:	GPLv3+
 Group:		System/Libraries
 URL:		http://www.gnu.org/software/libcdio/
@@ -65,6 +65,7 @@ This contains the program cd-info as an example application of %{name}.
 Summary:	Library from %{name}
 Group:		System/Libraries
 Provides:	libcdio = %{version}-%{release}
+Obsoletes:	%{mklibname cdio 13} <= 0.83
 
 %description -n %{libname}
 This package contains the library for libcdio.
