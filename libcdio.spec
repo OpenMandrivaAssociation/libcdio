@@ -23,7 +23,7 @@ Version:	0.90
 Release:	2
 License:	GPLv3+
 Group:		System/Libraries
-URL:		http://www.gnu.org/software/libcdio/
+Url:		http://www.gnu.org/software/libcdio/
 Source0:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.gz
 Source1:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.gz.sig
 
