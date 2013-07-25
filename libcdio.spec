@@ -1,4 +1,4 @@
-%define build_vcd 0
+%define build_vcd 1
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
@@ -20,7 +20,7 @@
 Summary:	CD-ROM reading library
 Name:		libcdio
 Version:	0.90
-Release:	3
+Release:	4
 License:	GPLv3+
 Group:		System/Libraries
 Url:		http://www.gnu.org/software/libcdio/
