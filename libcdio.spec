@@ -19,8 +19,8 @@
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	0.90
-Release:	11
+Version:	0.93
+Release:	1
 License:	GPLv3+
 Group:		System/Libraries
 Url:		http://www.gnu.org/software/libcdio/
@@ -118,7 +118,7 @@ to incorporate %{name} into applications.
 %setup -q
 
 %build
-%configure2_5x \
+%configure \
 	--disable-static \
 	--disable-rpath \
 	--without-versioned-libs \
