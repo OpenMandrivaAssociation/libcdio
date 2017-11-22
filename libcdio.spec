@@ -2,7 +2,7 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 16
+%define major 17
 %define libname %mklibname cdio %{major}
 
 %define isomajor 10
@@ -19,7 +19,7 @@
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	0.94
+Version:	1.0.0
 Release:	1
 License:	GPLv3+
 Group:		System/Libraries
