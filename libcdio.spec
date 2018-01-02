@@ -2,15 +2,17 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 17
+%define major 18
 %define libname %mklibname cdio %{major}
 
-%define isomajor 10
+%define isomajor 11
 %define libiso %mklibname iso9660_ %{isomajor}
 
-%define ppmajor 0
+%define ppmajor 1
 %define libnamepp %mklibname cdio++ %{ppmajor}
-%define libisopp %mklibname iso++ %{ppmajor}
+
+%define isoppmajor 0
+%define libisopp %mklibname iso++ %{isoppmajor}
 
 %define udfmajor 0
 %define libudf %mklibname udf %{udfmajor}
@@ -19,7 +21,7 @@
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	1.1.0
+Version:	2.0.0
 Release:	1
 License:	GPLv3+
 Group:		System/Libraries
@@ -149,7 +151,7 @@ to incorporate %{name} into applications.
 %{_libdir}/libcdio++.so.%{ppmajor}*
 
 %files -n %{libisopp}
-%{_libdir}/libiso9660++.so.%{ppmajor}*
+%{_libdir}/libiso9660++.so.%{isoppmajor}*
 
 %files -n %{devname}
 %doc ChangeLog README AUTHORS NEWS INSTALL TODO
