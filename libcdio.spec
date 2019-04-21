@@ -2,7 +2,7 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 18
+%define major 19
 %define libname %mklibname cdio %{major}
 
 %define isomajor 11
@@ -21,13 +21,13 @@
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	2.0.0
-Release:	4
+Version:	2.1.0
+Release:	1
 License:	GPLv3+
 Group:		System/Libraries
 Url:		http://www.gnu.org/software/libcdio/
-Source0:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.gz
-Source1:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.gz.sig
+Source0:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2
+Source1:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2.sig
 
 BuildRequires:	pkgconfig(libcddb)
 BuildRequires:	pkgconfig(ncurses)
@@ -134,7 +134,7 @@ to incorporate %{name} into applications.
 %makeinstall_std
 
 %files apps
-%doc README AUTHORS NEWS INSTALL TODO
+%doc README AUTHORS INSTALL TODO
 %{_bindir}/*
 %{_mandir}/man1/*
 
@@ -154,7 +154,7 @@ to incorporate %{name} into applications.
 %{_libdir}/libiso9660++.so.%{isoppmajor}*
 
 %files -n %{devname}
-%doc ChangeLog README AUTHORS NEWS INSTALL TODO
+%doc ChangeLog README AUTHORS INSTALL TODO
 %{_includedir}/cdio
 %{_includedir}/cdio++/
 %{_infodir}/libcdio.info*
