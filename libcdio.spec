@@ -117,7 +117,7 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure \
@@ -128,13 +128,13 @@ to incorporate %{name} into applications.
 	--disable-vcd-info
 %endif
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 %files apps
-%doc README AUTHORS INSTALL TODO
+%doc README AUTHORS
 %{_bindir}/*
 %{_mandir}/man1/*
 
@@ -164,4 +164,3 @@ to incorporate %{name} into applications.
 %{_libdir}/pkgconfig/libiso9660.pc
 %{_libdir}/pkgconfig/libiso9660++.pc
 %{_libdir}/pkgconfig/libudf.pc
-
