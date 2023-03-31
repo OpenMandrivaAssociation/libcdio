@@ -22,7 +22,7 @@
 Summary:	CD-ROM reading library
 Name:		libcdio
 Version:	2.1.0
-Release:	1
+Release:	2
 License:	GPLv3+
 Group:		System/Libraries
 Url:		http://www.gnu.org/software/libcdio/
