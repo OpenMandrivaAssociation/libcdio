@@ -25,7 +25,7 @@ Version:	2.1.0
 Release:	2
 License:	GPLv3+
 Group:		System/Libraries
-Url:		http://www.gnu.org/software/libcdio/
+Url:		https://www.gnu.org/software/libcdio/
 Source0:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2
 Source1:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2.sig
 
