@@ -41,6 +41,7 @@ BuildRequires:	make
 BuildRequires:	pkgconfig(libcddb)
 BuildRequires:	pkgconfig(ncurses)
 BuildRequires:	pkgconfig(popt)
+BuildRequires:	locales-extra-charsets
 #gw only if we change the man pages
 #BuildRequires: help2man
 %if %build_vcd
