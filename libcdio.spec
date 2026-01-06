@@ -3,31 +3,35 @@
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
 %define major 19
-%define libname %mklibname cdio %{major}
+%define oldlibname %mklibname cdio 19
+%define libname %mklibname cdio
 
-%define isomajor 11
-%define libiso %mklibname iso9660_ %{isomajor}
+%define isomajor 12
+%define oldlibiso %mklibname iso9660_ 11
+%define libiso %mklibname iso9660
 
 %define ppmajor 1
-%define libnamepp %mklibname cdio++ %{ppmajor}
+%define oldlibnamepp %mklibname cdio++ 1
+%define libnamepp %mklibname cdio++
 
-%define isoppmajor 0
-%define libisopp %mklibname iso++ %{isoppmajor}
+%define isoppmajor 1
+%define oldlibisopp %mklibname iso++ 0
+%define libisopp %mklibname iso++
 
 %define udfmajor 0
-%define libudf %mklibname udf %{udfmajor}
+%define oldlibudf %mklibname udf 0
+%define libudf %mklibname udf
 
 %define devname %mklibname -d cdio
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	2.1.0
-Release:	2
+Version:	2.3.0
+Release:	1
 License:	GPLv3+
 Group:		System/Libraries
 Url:		https://www.gnu.org/software/libcdio/
-Source0:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2
-Source1:	ftp://ftp.gnu.org/pub/gnu/libcdio/%{name}-%{version}.tar.bz2.sig
+Source0:	https://github.com/libcdio/libcdio/releases/download/%{version}/libcdio-%{version}.tar.bz2
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -41,6 +45,14 @@ BuildRequires:	pkgconfig(popt)
 #BuildRequires: help2man
 %if %build_vcd
 BuildRequires:	pkgconfig(libvcdinfo)
+%endif
+
+BuildSystem:	autotools
+BuildOption:	--disable-static
+BuildOption:	--disable-rpath
+BuildOption:	--without-versioned-libs
+%if ! %build_vcd
+BuildOption:	--disable-vcd-info
 %endif
 
 %description 
@@ -73,6 +85,7 @@ Summary:	Library from %{name}
 Group:		System/Libraries
 Provides:	libcdio = %{version}-%{release}
 Obsoletes:	%{mklibname cdio 13} <= 0.83
+%rename %{oldlibname}
 
 %description -n %{libname}
 This package contains the library for libcdio.
@@ -80,6 +93,7 @@ This package contains the library for libcdio.
 %package -n %{libiso}
 Summary:	Library from %{name}
 Group:		System/Libraries
+%rename %{oldlibiso}
 
 %description -n %{libiso}
 This package contains the library for libiso.
@@ -87,6 +101,7 @@ This package contains the library for libiso.
 %package -n %{libnamepp}
 Summary:	C++ library from %{name}
 Group:		System/Libraries
+%rename %{oldlibnamepp}
 
 %description -n %{libnamepp}
 This package contains the C++ library for libcdio++.
@@ -95,6 +110,7 @@ This package contains the C++ library for libcdio++.
 Summary:	C++ library from %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}cdiopp0 < 0.90-1
+%rename %{oldlibisopp}
 
 %description -n %{libisopp}
 This package contains the C++ library for libiso++.
@@ -102,6 +118,7 @@ This package contains the C++ library for libiso++.
 %package -n %{libudf}
 Summary:	Libraries from %{name}
 Group:		System/Libraries
+%rename %{oldlibudf}
 
 %description -n %{libudf}
 This package contains the library for libudf.
@@ -121,25 +138,8 @@ Obsoletes:	%{_lib}cdio-static-devel
 This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
-%prep
-%autosetup -p1
-
-%build
-%configure \
-	--disable-static \
-	--disable-rpath \
-	--without-versioned-libs \
-%if ! %build_vcd
-	--disable-vcd-info
-%endif
-
-%make_build
-
-%install
-%make_install
-
 %files apps
-%doc README AUTHORS
+%doc AUTHORS
 %{_bindir}/*
 %{_mandir}/man1/*
 
@@ -159,7 +159,7 @@ to incorporate %{name} into applications.
 %{_libdir}/libiso9660++.so.%{isoppmajor}*
 
 %files -n %{devname}
-%doc ChangeLog README AUTHORS INSTALL TODO
+%doc ChangeLog AUTHORS INSTALL TODO
 %{_includedir}/cdio
 %{_includedir}/cdio++/
 %{_infodir}/libcdio.info*
