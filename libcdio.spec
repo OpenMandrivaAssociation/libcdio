@@ -2,15 +2,15 @@
 %{?_with_vcd: %{expand: %%global build_vcd 1}}
 %{?_without_vcd: %{expand: %%global build_vcd 0}}
 
-%define major 19
+%define major 21
 %define oldlibname %mklibname cdio 19
 %define libname %mklibname cdio
 
-%define isomajor 12
+%define isomajor 13
 %define oldlibiso %mklibname iso9660_ 11
 %define libiso %mklibname iso9660
 
-%define ppmajor 1
+%define ppmajor 2
 %define oldlibnamepp %mklibname cdio++ 1
 %define libnamepp %mklibname cdio++
 
@@ -26,24 +26,19 @@
 
 Summary:	CD-ROM reading library
 Name:		libcdio
-Version:	2.3.0
+Version:	2.4.0
 Release:	1
 License:	GPLv3+
 Group:		System/Libraries
 Url:		https://www.gnu.org/software/libcdio/
 Source0:	https://github.com/libcdio/libcdio/releases/download/%{version}/libcdio-%{version}.tar.bz2
 
-BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
-BuildRequires:	slibtool
-BuildRequires:	make
 BuildRequires:	pkgconfig(libcddb)
 BuildRequires:	pkgconfig(ncurses)
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	locales-extra-charsets
-#gw only if we change the man pages
-#BuildRequires: help2man
+BuildRequires:	help2man
 %if %build_vcd
 BuildRequires:	pkgconfig(libvcdinfo)
 %endif
@@ -84,7 +79,7 @@ This contains the program cd-info as an example application of %{name}.
 %package -n %{libname}
 Summary:	Library from %{name}
 Group:		System/Libraries
-Provides:	libcdio = %{version}-%{release}
+Provides:	libcdio = %{EVRD}
 Obsoletes:	%{mklibname cdio 13} <= 0.83
 %rename %{oldlibname}
 
@@ -127,12 +122,12 @@ This package contains the library for libudf.
 %package -n %{devname}
 Summary:	Devel files from %{name}
 Group:		Development/C
-Requires:	%{libname} = %{version}-%{release}
-Requires:	%{libiso} = %{version}-%{release}
-Requires:	%{libnamepp} = %{version}-%{release}
-Requires:	%{libisopp} = %{version}-%{release}
-Requires:	%{libudf} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Requires:	%{libiso} = %{EVRD}
+Requires:	%{libnamepp} = %{EVRD}
+Requires:	%{libisopp} = %{EVRD}
+Requires:	%{libudf} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
 Obsoletes:	%{_lib}cdio-static-devel
 
 %description -n %{devname}
@@ -140,7 +135,7 @@ This is the libraries, include files and other resources you can use
 to incorporate %{name} into applications.
 
 %files apps
-%doc AUTHORS
+%doc AUTHORS NEWS.md
 %{_bindir}/*
 %{_mandir}/man1/*
 
@@ -160,7 +155,7 @@ to incorporate %{name} into applications.
 %{_libdir}/libiso9660++.so.%{isoppmajor}*
 
 %files -n %{devname}
-%doc ChangeLog AUTHORS INSTALL TODO
+%doc ChangeLog AUTHORS INSTALL TODO NEWS.md README.md
 %{_includedir}/cdio
 %{_includedir}/cdio++/
 %{_infodir}/libcdio.info*
